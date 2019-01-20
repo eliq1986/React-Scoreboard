@@ -1,11 +1,12 @@
 import React from 'react';
+import Stats from './Stats';
 
 const Header = ({title, playersArr}) => {
-   const numberOfPlayers = playersArr.length;
+
    return (
      <header>
-      <h1>{title}</h1>
-      <span className="stats">Players: {numberOfPlayers}</span>
+       <Stats playersArr={playersArr}/>
+       <h1>{title}</h1>
      </header>
    )
 }

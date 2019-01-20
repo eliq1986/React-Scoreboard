@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
+
 
 import Header from './components/Header';
 import Player from './components/Player';
+import AddPlayerForm from './components/AddPlayerForm';
 
 
-class App extends React.Component {
+class App extends Component {
 
   state = {
     players:[{
@@ -40,37 +42,31 @@ handleRemovePlayer = id => {
   });
 }
 
-incrementScore = () => {
-    this.setState(prevState => {
-      return {
-        score: prevState.score + 1
-      }
-
-    })
+handleScore = (index, delta) => {
+      this.setState(prevState => ({
+          score: prevState.players[index].score += delta
+      }));
+      console.log(this.state.players[0].score);
   }
 
-decrementScore = () => {
-  this.setState(prevState => {
-    return {
-        score: prevState.score - 1
-    }
-
-  })
-}
 
 
  render() {
-   const playersArr = this.state.players.map(player =>
+   const playersArr = this.state.players.map((player, index) =>
      <Player key={player.id.toString()}
-             id={player.id}
-             score={player.score}
-             removePlayer={this.handleRemovePlayer}
-             name={player.name} />);
+       playerIndex={index}
+       id={player.id}
+       score={player.score}
+       removePlayer={this.handleRemovePlayer}
+       name={player.name}
+       changeScore={this.handleScore}
+     />);
 
   return (
     <div className="scoreboard">
       <Header title="Scoreboard" playersArr={playersArr}/>
       {playersArr}
+      <AddPlayerForm />
     </div>
   );
 }
