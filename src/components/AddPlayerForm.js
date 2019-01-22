@@ -15,7 +15,6 @@ handleValueChange = (e) => {
 }
 
   render() {
-    console.log(this.state.value)
     return (
       <form>
         <input
