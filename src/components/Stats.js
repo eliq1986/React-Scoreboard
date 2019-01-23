@@ -1,11 +1,13 @@
 import React from 'react';
 
-const Stats = ({playersArr}) => {
+const Stats = ({ playersArr }) => {
 
   const numberOfPlayers = playersArr.length;
+
   const totalPoints = playersArr.reduce((total , player) => {
     return total + player.props.score;
   }, 0);
+
   return (
     <table className="stats">
       <tbody>

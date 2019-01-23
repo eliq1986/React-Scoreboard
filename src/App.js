@@ -31,6 +31,8 @@ class App extends Component {
   }]
 };
 
+//
+prevPlayerId = 4;
 
 
 handleRemovePlayer = id => {
@@ -38,21 +40,36 @@ handleRemovePlayer = id => {
     return {
         players: prevState.players.filter(player => player.id !== id)
     }
-
   });
 }
+
 
 handleScore = (index, delta) => {
       this.setState(prevState => ({
           score: prevState.players[index].score += delta
       }));
-      console.log(this.state.players[0].score);
   }
 
 
+handleAddPlayer = name => {
+  this.setState(prevState => {
+    return {
+    players: [
+      ...prevState.players,
+      {
+        name,
+        score: 0,
+        id: this.prevPlayerId += 1
+      }
+
+    ]
+  }
+  })
+}
+
 
  render() {
-   const playersArr = this.state.players.map((player, index) =>
+   const playersList = this.state.players.map((player, index) =>
      <Player key={player.id.toString()}
        playerIndex={index}
        id={player.id}
@@ -64,9 +81,9 @@ handleScore = (index, delta) => {
 
   return (
     <div className="scoreboard">
-      <Header title="Scoreboard" playersArr={playersArr}/>
-      {playersArr}
-      <AddPlayerForm />
+      <Header title="Scoreboard" playersArr={playersList}/>
+      {playersList}
+      <AddPlayerForm addPlayer={this.handleAddPlayer}/>
     </div>
   );
 }

@@ -8,17 +8,26 @@ state = {
   value: ""
 }
 
-handleValueChange = (e) => {
+handleValueChange = e => {
   this.setState({
     value: e.target.value
   })
 }
 
+handleSubmit = e => {
+   e.preventDefault();
+   this.props.addPlayer(this.state.value);
+   this.setState({
+     value: ""
+   })
+
+}
+
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <input
-          onChange={this.handleValueChange}
+          onChange={event => this.setState({value: event.target.value})}
           type="text"
           value={this.state.value}
           placeholder="Enter a player's name"
